@@ -132,7 +132,7 @@ def rules():
     """
     Rules of the game
     """
-    print(f"""\n   {colors.RED}RULES
+    print(f"""\n   {colors.RED}RULES{colors.RESET}
     1. Choose the difficulty of the game:
          - Easy = 8 lives
          - Medium = 6 lives
@@ -148,6 +148,72 @@ def rules():
 
     Choose one of the option: 
     
-    {colors.GREEN}1. Play Game
-    {colors.BLUE} 2. Scoreboard
+    {colors.GREEN}1. Play Game{colors.RESET}
+    {colors.BLUE} 2. Scores{colors.RESET}
     """)
+
+    choice_done = False
+    while choice_done is not True:
+        choice = input('Number:\n')
+
+        try:
+            if choice == "1":
+                choice_done = True
+                num_lives = set_difficulty()
+                make_guess(num_lives)
+            elif choice == "2":
+                choice_done = True
+                display_scoreboard()
+            else:
+                raise ValueError(invalid_option)
+        except ValueError as e:
+            print(f"Invalid option")
+
+def intro_game():
+    """
+    Game options and logo of the game 
+    """
+    global guesses
+    guesses = []
+
+    print(f"""{colors.RED}
+
+ ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █
+▓██░ ██▒▒████▄     ██ ▀█   █  ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄     ██ ▀█   █
+▒██▀▀██░▒██  ▀█▄  ▓██  ▀█ ██▒▒██░▄▄▄░▓██    ▓██░▒██  ▀█▄  ▓██  ▀█ ██▒
+░▓█ ░██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█  ██▓▒██    ▒██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒
+░▓█▒░██▓ ▓█   ▓██▒▒██░   ▓██░░▒▓███▀▒▒██▒   ░██▒ ▓█   ▓██▒▒██░   ▓██░
+ ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ░▒   ▒ ░ ▒░   ░  ░ ▒▒   ▓▒█░░ ▒░   ▒ ▒
+ ▒ ░▒░ ░  ▒   ▒▒ ░░ ░░   ░ ▒░  ░   ░ ░  ░      ░  ▒   ▒▒ ░░ ░░   ░ ▒░
+ ░  ░░ ░  ░   ▒      ░   ░ ░ ░ ░   ░ ░      ░     ░   ▒      ░   ░ ░
+ ░  ░  ░      ░  ░         ░       ░        ░         ░  ░         ░
+
+\n""")
+
+    print(f"Welcome to the Hangman Game!\n")
+
+    print(f"""
+    Choose one of the options:
+    {colors.GREEN}1. Play Game{colors.RESET} \n
+    {colors.BLUE} 2. Rules{colors.RESET} \n
+    {colors.RED}  3. Scores{colors.RESET} \n""")
+    print(f"Enter one of the number 1, 2 or 3\n")
+
+    choice_done = False
+    while choice_done is False:
+        menu_choice = input("Invalid option! Please enter 1, 2 or 3:\n")
+        try:
+            if menu_choice == "1":
+                return menu_choice
+                choice_done = True
+            elif menu_choice == "2":
+                return menu_choice
+                choice_done = True
+            elif menu_choice == "3":
+                return menu_choice
+                choice_done = True
+            else:
+                 raise ValueError(invalid_option)
+         except ValueError as e:
+             print(f"Invalid option! Please try again.")
+        
