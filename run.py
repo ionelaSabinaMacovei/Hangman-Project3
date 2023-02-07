@@ -1,7 +1,11 @@
 import gspread
 from google.oauth2.service_account import Credentials
-import os 
 from words import words
+import random
+
+import colorama
+from colorama import Fore
+colorama.init(autoreset=True)
 
 SCOPE = [  
     "https://www.googleapis.com/auth/spreadsheets",
@@ -12,127 +16,122 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('Scoreboard')
+SHEET = GSPREAD_CLIENT.open('scoreboard')
 
-global guesses
-global invalid_option
-guesses = []  # previously guessed letters
-invalid_option = """WHOOPS! That is not a valid option!\n
-Please enter a valid option, using the number
-which corresponds to your selection\n"""
+scoreboard = SHEET.worksheet("scoreboard")
 
-class colors:  
-    # print to terminal in different colors
-    RED = "\033[1;31m"
-    BLUE = "\033[1;34m"
-    GREEN = "\033[0;32m"
+data = scoreboard.get_all_values()
 
-
-def clear_console():
-    """
-    Function for clearing the terminal screen
-    """
-    os.system('clear')
-
-
-
+#consts
+CORRECT_ANSWER = 25
+CORRECT_FULLWORD = 200
+PLAY_AGAIN_MSG = f"""{Fore.CYAN}
+A - PLAY AGAIN
+B - LEADERBOARD
+C - EXIT THE GAME
 """
-Array of hangman visuals to print
-"""
-hangman_stage =  ("""
-                    --------
-                    |      |
-                    |      O
-                    |     \\|/
-                    |      |
-                    |     / \\
-                    -
-                    """,
+
+
+def display_hangman(lives):
+    """
+    This is an image of how many lives the user has left
+    before the game is over."""
+    hangman_stage = ["""
+                        --------
+                        |      |
+                        |      O
+                        |     \\|/
+                        |      |
+                        |     / \\
+                        -
+                        """,
+                        
+                        """
+                        --------
+                        |      |
+                        |      O
+                        |     \\|/
+                        |      |
+                        |     /
+                        -
+                        """,
                     
-                    """
-                    --------
-                    |      |
-                    |      O
-                    |     \\|/
-                    |      |
-                    |     /
-                    -
-                    """,
-                
-                    """
-                    --------
-                    |      |
-                    |      O
-                    |     \\|/
-                    |      |
-                    |
-                    -
-                    """,
-                    
-                    """
-                    --------
-                    |      |
-                    |      O
-                    |     \\|
-                    |      |
-                    |
-                    -
-                    """,
-                    
-                    """
-                    --------
-                    |      |
-                    |      O
-                    |      |
-                    |      |
-                    |
-                    -
-                    """,
-                    
-                    """
-                    --------
-                    |      |
-                    |      O
-                    |
-                    |
-                    |
-                    -
-                    """,
-                    
-                    """
-                    --------
-                    |      |
-                    |
-                    |
-                    |
-                    |
-                    -
-                    """,
-                    """
+                        """
+                        --------
+                        |      |
+                        |      O
+                        |     \\|/
+                        |      |
+                        |
+                        -
+                        """,
+                        
+                        """
+                        --------
+                        |      |
+                        |      O
+                        |     \\|
+                        |      |
+                        |
+                        -
+                        """,
+                        
+                        """
+                        --------
+                        |      |
+                        |      O
+                        |      |
+                        |      |
+                        |
+                        -
+                        """,
+                        
+                        """
+                        --------
+                        |      |
+                        |      O
+                        |
+                        |
+                        |
+                        -
+                        """,
+                        
+                        """
+                        --------
+                        |      |
                         |
                         |
                         |
                         |
-                        |
-                        |
-                        |
-                        ----------
-                    """,
-                    """
+                        -
+                        """,
+                        """
+                            |
+                            |
+                            |
+                            |
+                            |
+                            |
+                            |
+                            ----------
+                        """,
+                        """
 
 
 
 
-                        |
-                        |
-                        ----------
-                    """ )
+                            |
+                            |
+                            ----------
+                        """]
+    return hangman_stage[lives]
+
 
 def rules():
     """
     Rules of the game
     """
-    print(f"""\n   {colors.RED}RULES{colors.RESET}
+    print(f"""\n   {Fore.RED}RULES
     1. Choose the difficulty of the game:
          - Easy = 8 lives
          - Medium = 6 lives
@@ -146,37 +145,15 @@ def rules():
 
     4. You LOSE if you run out of lives and HangMan is hung
 
-    Choose one of the option: 
-    
-    {colors.GREEN}1. Play Game{colors.RESET}
-    {colors.BLUE} 2. Scores{colors.RESET}
     """)
 
-    choice_done = False
-    while choice_done is not True:
-        choice = input('Number:\n')
-
-        try:
-            if choice == "1":
-                choice_done = True
-                num_lives = set_difficulty()
-                make_guess(num_lives)
-            elif choice == "2":
-                choice_done = True
-                display_scoreboard()
-            else:
-                raise ValueError(invalid_option)
-        except ValueError as e:
-            print(f"Invalid option")
 
 def intro_game():
     """
-    Game options and logo of the game 
+    Logo of the game and rules
     """
-    global guesses
-    guesses = []
 
-    print(f"""{colors.RED}
+    print(f"""{Fore.RED}
 
  ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █
 ▓██░ ██▒▒████▄     ██ ▀█   █  ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄     ██ ▀█   █
@@ -192,28 +169,47 @@ def intro_game():
 
     print(f"Welcome to the Hangman Game!\n")
 
-    print(f"""
-    Choose one of the options:
-    {colors.GREEN}1. Play Game{colors.RESET} \n
-    {colors.BLUE} 2. Rules{colors.RESET} \n
-    {colors.RED}  3. Scores{colors.RESET} \n""")
-    print(f"Enter one of the number 1, 2 or 3\n")
 
-    choice_done = False
-    while choice_done is False:
-        menu_choice = input("Invalid option! Please enter 1, 2 or 3:\n")
-        try:
-            if menu_choice == "1":
-                return menu_choice
-                choice_done = True
-            elif menu_choice == "2":
-                return menu_choice
-                choice_done = True
-            elif menu_choice == "3":
-                return menu_choice
-                choice_done = True
-            else:
-                 raise ValueError(invalid_option)
-         except ValueError as e:
-             print(f"Invalid option! Please try again.")
-        
+def get_word():
+    """
+    Get a random word from the words list
+    """
+    nm = random.randint(0, len(words)-1)
+    word = words[nm]
+    return word
+
+
+def play_game(word):
+    """
+    Game main function
+    """
+    full_word = "_" * len(word)
+    guessed = False
+    guessed_letters = []
+    guessed_words = []
+    guessed_wrong = []
+    guessed_right = 0
+    lives = 7
+    score = 0
+    print(f"\n\tLET'S PLAY THE HANGMAN GAME!\n")
+    print(f"""\tYOU WORD CONTAINS {len(word)} LETTERS""")
+    print(display_hangman(lives))
+    word_space(f"\t{full_word}")
+    print("\n")
+
+
+def word_space(full_word):
+    """
+    Add space in between letters in the random word
+    """
+    for i in full_word:
+        print(i, end=" ")
+
+
+def display_score(score):
+    """
+    Display player score during the game
+    """
+    print(f"\tSCORE: {score}")
+
+
