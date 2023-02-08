@@ -25,7 +25,7 @@ data = scoreboard.get_all_values()
 #consts
 CORRECT_ANSWER = 25
 CORRECT_FULLWORD = 200
-PLAY_AGAIN_MSG = f"""{Fore.CYAN}
+PLAY_AGAIN_MSG = f"""{Fore.RED}
 A - PLAY AGAIN
 B - LEADERBOARD
 C - EXIT THE GAME
@@ -250,7 +250,7 @@ def play_game(word):
         print(display_hangman(lives))
         word_space(f"\t{full_word}")
         print("\n")
-    final_result(guessed, word, guessed_right, score)
+    result(guessed, word, guessed_right, score)
 
 
 def word_space(full_word):
@@ -268,27 +268,46 @@ def display_score(score):
     print(f"\tSCORE: {score}")
 
 
-def final_result(guessed, random_word, guessed_right, score):
+def result(guessed, word, guessed_right, score):
     """
-    Check if the player loses or won the game guessing the word letter
-    by letter or the word at once
+    Display win or lose message
     """
-    if guessed and len(random_word) >= 6 and guessed_right <= 3:
-        print(f"{Fore.GREEN}{hangman_logo[3]}")
+    if guessed and len(word) >= 6 and guessed_right <= 3:
+        print(f"""{Fore.GREEN}
+██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗
+╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║
+ ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║
+  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║
+   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║
+   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝
+        \n""")
         print(f"""{Fore.GREEN}
         YOU WIN {player_name}, YOU HAVE GUESSED THE WORD COMPLETELY AT ONCE!\n
         """)
-        score = score + EXTRA_SCORE + FULLY_WORD_SCORE
+        score = score + CORRECT_ANSWER + CORRECT_FULLWORD
     elif guessed:
-        print(f"{Fore.GREEN}{hangman_logo[2]}")
-        print(f"""{Fore.GREEN}
-        YOU WIN {player_name}, YOU HAVE GUESSED THE RIGHT WORD!\n
-        """)
-        score = score + EXTRA_SCORE
+        print(f"""{Fore.RED}
+██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗
+╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║
+ ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║
+  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║
+   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║
+   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝       
+        \n""")
+        print(f"""{Fore.RED}
+        YOU WIN {player_name}, YOU HAVE GUESSED THE RIGHT WORD!\n""")
+        score = score + CORRECT_ANSWER
     else:
-        print(f"{Fore.RED}{hangman_logo[1]}")
+        print(f"""{Fore.RED}
+██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗███████╗
+╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝██╔════╝
+ ╚████╔╝ ██║   ██║██║   ██║    ██║     ██║   ██║███████╗█████╗
+  ╚██╔╝  ██║   ██║██║   ██║    ██║     ██║   ██║╚════██║██╔══╝
+   ██║   ╚██████╔╝╚██████╔╝    ███████╗╚██████╔╝███████║███████╗
+   ╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝╚══════╝       
+        """)
         print(F"""{Fore.RED}
-        YOU LOSE {player_name}, THE RIGHT WORD WAS {random_word}!
+        YOU LOSE {player_name}, THE RIGHT WORD WAS {word}!
         """)
     update_worksheet(data, score)
     display_score(score)
