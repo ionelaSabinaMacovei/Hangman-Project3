@@ -179,7 +179,7 @@ def get_word():
     return word
 
 
-def play_game(word):
+def game(word):
     """
     Game main function
     """
@@ -344,3 +344,63 @@ def result(guessed, word, guessed_right, score):
         """)
     update_scoreboard(data, score)
     display_score(score)
+
+
+def main():
+    """
+    Starts the game with a random word.
+    Once a game run is complete, give to the player 3 choices at the end:
+        * Play again
+        * Leaderboard
+        * Exit the game
+    """
+
+    play_game = True
+    while True:
+        if play_game:
+            word = get_word()
+            game(word)
+
+        user_input = input(f"{PLAY_AGAIN_MSG}>>> ").lower()
+        if user_input == "a":
+            print(f"\n\tYou have decided to continue playing the game.\n")
+            play_game = True
+        elif user_input == "b":
+            display_scoreboard()
+            play_game = False
+        elif user_input == "c":
+            print(f"{Fore.RED}\n\tNow closing the game...")
+            print(f"""{Fore.CYAN}
+            \n\tThanks for playing, {player_name.capitalize()}.
+            \n\tHope to see you again soon!\n""")
+            #sys.exit()
+        else:
+            print(f"""{Fore.YELLOW}\n\t
+            That is not a valid option. Please try again.\n""")
+            play_game = False
+
+
+if __name__ == '__main__':
+
+    # Allows the user to input their own name and city to play the game
+    while True:
+        player_name = input(f"\n{Fore.CYAN}NAME:\n>>> ").strip().upper()
+        if len(player_name) == 0:
+            print(f"{Fore.RED}This is not a valid name!")
+            continue
+        else:
+            break
+    while True:
+        player_city = input(f"{Fore.CYAN}YOUR CITY:\n>>> ").strip().upper()
+        if len(player_city) == 0:
+            print(f"{Fore.RED}This is not a valid city!")
+            continue
+        else:
+            break
+    print(f"""{Fore.YELLOW}\n\t
+    HELLO {player_name}, WELCOME TO THE HANGMAN GAME!\n""")
+    print(f"{Fore.BLUE}{rules()}")
+    input(f"""\n{Fore.CYAN}
+    {player_name}, PRESS ANY KEY TO START THE GAME.\n    >>> """)
+
+    main()
