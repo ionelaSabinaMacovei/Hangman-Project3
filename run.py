@@ -268,6 +268,39 @@ def display_score(score):
     print(f"\tSCORE: {score}")
 
 
+def update_scoreboard(data, score):
+    """
+    This updates a new row with the name, score and difficulty in worksheet.
+    """
+    print(f"\t{Fore.GREEN}Updating Leaderboard...\n")
+    worksheet_to_update = SHEET.worksheet("scoreboard")
+    worksheet_to_update.append_row([
+      str(player_name[0:7]), score, difficulty])
+    print(f"\t{Fore.GREEN}Leaderboard Update successful.\n")
+
+
+def display_scoreboard():
+    """
+    Displays to the players the 10 best scores
+    """
+    score_sheet = SHEET.worksheet("scoreboard").get_all_values()[1:]
+    for data in score_sheet:
+        data[1] = (data[1])
+
+    update_data = sorted(score_sheet, key=lambda x: int(x[1]), reverse=True)
+
+    print(f"{rules()}")
+    if (len(update_data) < 10):
+        count = len(update_data)
+    else:
+        count = 10
+
+    for i in range(0, count):
+        print(f"""
+        {Fore.GREEN}{i+1}\t{update_data[i][0]}\t  {update_data[i][1]}\t{
+        update_data[i][2]}\t{update_data[i][3]}""")
+
+
 def result(guessed, word, guessed_right, score):
     """
     Display win or lose message
@@ -309,5 +342,5 @@ def result(guessed, word, guessed_right, score):
         print(F"""{Fore.RED}
         YOU LOSE {player_name}, THE RIGHT WORD WAS {word}!
         """)
-    update_worksheet(data, score)
+    update_scoreboard(data, score)
     display_score(score)
