@@ -30,6 +30,9 @@ A - PLAY AGAIN
 B - LEADERBOARD
 C - EXIT THE GAME
 """
+invalid_option = """WHOOPS! That is not a valid option!\n
+Please enter a valid option, using the number
+which corresponds to your selection\n"""
 
 
 def display_hangman(lives):
@@ -174,9 +177,8 @@ def get_word():
     """
     Get a random word from the words list
     """
-    nm = random.randint(0, len(words)-1)
-    word = words[nm]
-    return word
+    word = random.choice(words)
+    return word.upper()
 
 
 def game(word):
@@ -275,7 +277,7 @@ def update_scoreboard(data, score):
     print(f"\t{Fore.GREEN}Updating Leaderboard...\n")
     worksheet_to_update = SHEET.worksheet("scoreboard")
     worksheet_to_update.append_row([
-      str(player_name[0:7]), score, difficulty])
+      str(player_name[0:7]), score, ])
     print(f"\t{Fore.GREEN}Leaderboard Update successful.\n")
 
 
@@ -384,7 +386,7 @@ if __name__ == '__main__':
 
     # Allows the user to input their own name and city to play the game
     while True:
-        player_name = input(f"\n{Fore.CYAN}NAME:\n>>> ").strip().upper()
+        player_name = input(f"{intro_game()}\n{Fore.CYAN}NAME:\n>>> ").strip().upper()
         if len(player_name) == 0:
             print(f"{Fore.RED}This is not a valid name!")
             continue
