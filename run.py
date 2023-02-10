@@ -2,12 +2,13 @@ import gspread
 from google.oauth2.service_account import Credentials
 from words import words
 import random
-
+import os
+import sys
 import colorama
 from colorama import Fore
 colorama.init(autoreset=True)
 
-import os
+
 
 SCOPE = [  
     "https://www.googleapis.com/auth/spreadsheets",
@@ -292,7 +293,13 @@ def display_scoreboard():
 
     update_data = sorted(score_sheet, key=lambda x: int(x[1]), reverse=True)
 
-    print(f"{rules()}")
+    print(f"""
+
+                      S C O R E B O A R D
+  
+    \tPOS\tNAME\t SCORE
+    
+""")
     if (len(update_data) < 10):
         count = len(update_data)
     else:
@@ -300,8 +307,8 @@ def display_scoreboard():
 
     for i in range(0, count):
         print(f"""
-        {Fore.GREEN}{i+1}\t{update_data[i][0]}\t  {update_data[i][1]}\t{
-        update_data[i][2]}\t{update_data[i][3]}""")
+        {Fore.GREEN}{i+1}\t{update_data[i][0]}\t{update_data[i][1]}
+        """)
 
 
 def result(guessed, word, guessed_right, score):
@@ -372,14 +379,16 @@ def main():
             print(f"\n\tYou have decided to continue playing the game.\n")
             play_game = True
         elif user_input == "b":
+            clear_console()
             display_scoreboard()
             play_game = False
         elif user_input == "c":
+            clear_console()
             print(f"{Fore.RED}\n\tNow closing the game...")
             print(f"""{Fore.RED}
             \n\tThanks for playing, {player_name.capitalize()}.
             \n\tHope to see you again soon!\n""")
-            #sys.exit()
+            sys.exit()
         else:
             print(f"""{Fore.RED}\n\t
             That is not a valid option. Please try again.\n""")
