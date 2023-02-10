@@ -7,6 +7,8 @@ import colorama
 from colorama import Fore
 colorama.init(autoreset=True)
 
+import os
+
 SCOPE = [  
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -30,9 +32,9 @@ A - PLAY AGAIN
 B - LEADERBOARD
 C - EXIT THE GAME
 """
-invalid_option = """WHOOPS! That is not a valid option!\n
-Please enter a valid option, using the number
-which corresponds to your selection\n"""
+
+def clear_console():
+    os.system('clear')
 
 
 def display_hangman(lives):
@@ -109,23 +111,22 @@ def display_hangman(lives):
                         -
                         """,
                         """
-                            |
-                            |
-                            |
-                            |
-                            |
-                            |
-                            |
-                            ----------
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+                        ----------
                         """,
                         """
 
 
 
-
-                            |
-                            |
-                            ----------
+                        |
+                        |
+                        ----------
                         """]
     return hangman_stage[lives]
 
@@ -134,11 +135,9 @@ def rules():
     """
     Rules of the game
     """
+    clear_console()
     print(f"""\n   {Fore.RED}RULES
-    1. Choose the difficulty of the game:
-         - Easy = 8 lives
-         - Medium = 6 lives
-         - Hard = 4 lives
+    1. You have 7 lives to try to find the right word by inputting letters or the full word 
     
     2. Try to guess the one of the letters in the word!
         - If the letter is in the word, it will show up in the word.
@@ -193,6 +192,7 @@ def game(word):
     guessed_right = 0
     lives = 7
     score = 0
+    clear_console()
     print(f"\n\tLET'S PLAY THE HANGMAN GAME!\n")
     print(f"""\tYOU WORD CONTAINS {len(word)} LETTERS""")
     print(display_hangman(lives))
@@ -209,6 +209,7 @@ def game(word):
         guess = input(f"""\t\t
         GUESS A LETTER OR A WORD PLEASE:\n\t>>> """).upper()
         print("\n")
+        clear_console()
         #Check if the player has already guess the letter
         # Or if the letter guessed in not in the word
         # And if the letter guessed is in the word
@@ -308,6 +309,7 @@ def result(guessed, word, guessed_right, score):
     Display win or lose message
     """
     if guessed and len(word) >= 6 and guessed_right <= 3:
+        clear_console()
         print(f"""{Fore.GREEN}
 ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗
 ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║
@@ -321,6 +323,7 @@ def result(guessed, word, guessed_right, score):
         """)
         score = score + CORRECT_ANSWER + CORRECT_FULLWORD
     elif guessed:
+        clear_console()
         print(f"""{Fore.RED}
 ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗
 ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║
@@ -333,6 +336,7 @@ def result(guessed, word, guessed_right, score):
         YOU WIN {player_name}, YOU HAVE GUESSED THE RIGHT WORD!\n""")
         score = score + CORRECT_ANSWER
     else:
+        clear_console()
         print(f"""{Fore.RED}
 ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗███████╗
 ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝██╔════╝
@@ -372,37 +376,31 @@ def main():
             play_game = False
         elif user_input == "c":
             print(f"{Fore.RED}\n\tNow closing the game...")
-            print(f"""{Fore.CYAN}
+            print(f"""{Fore.RED}
             \n\tThanks for playing, {player_name.capitalize()}.
             \n\tHope to see you again soon!\n""")
             #sys.exit()
         else:
-            print(f"""{Fore.YELLOW}\n\t
+            print(f"""{Fore.RED}\n\t
             That is not a valid option. Please try again.\n""")
             play_game = False
 
 
 if __name__ == '__main__':
 
-    # Allows the user to input their own name and city to play the game
+    # Allows the user to input their own name to play the game
     while True:
-        player_name = input(f"{intro_game()}\n{Fore.CYAN}NAME:\n>>> ").strip().upper()
+        player_name = input(f"{intro_game()}\n{Fore.GREEN}Please Enter Your Name:\n>>> ").strip().upper()
         if len(player_name) == 0:
             print(f"{Fore.RED}This is not a valid name!")
             continue
         else:
             break
-    while True:
-        player_city = input(f"{Fore.CYAN}YOUR CITY:\n>>> ").strip().upper()
-        if len(player_city) == 0:
-            print(f"{Fore.RED}This is not a valid city!")
-            continue
-        else:
-            break
-    print(f"""{Fore.YELLOW}\n\t
+    print(f"""{Fore.RED}\n\t
     HELLO {player_name}, WELCOME TO THE HANGMAN GAME!\n""")
-    print(f"{Fore.BLUE}{rules()}")
-    input(f"""\n{Fore.CYAN}
+    print(f"{rules()}")
+    input(f"""\n{Fore.GREEN}
     {player_name}, PRESS ANY KEY TO START THE GAME.\n    >>> """)
+    clear_console()
 
     main()
