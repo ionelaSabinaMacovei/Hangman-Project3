@@ -1,11 +1,1 @@
-words = ['red', 'team', 'fly', 'transparent', 'ridiculous',
-         'halloween', 'blue', 'insect', 'united', 'terminal', 'guitar',
-         'piano', 'whole', 'gather', 'stranger', 'plastic', 'thing',
-         'bashful', 'abrasive', 'tasty', 'system',
-         'satisfying', 'invent', 'invention', 'chalk', 'license',
-         'straw', 'great', 'homely', 'dolls', 'loud', 'moan',
-         'muddled', 'vengeful', 'itchy', 'materialistic', 'control',
-         'haunt', 'radiate', 'reminiscent', 'bolt', 'grubby', 'name',
-         'sparkling', 'alert', 'quilt', 'scissors', 'nauseating',
-         'follow', 'insurance', 'foot', 'wander',
-         'approve', 'tub', 'afford', 'grease', 'paddle', 'nonstop']
+words = ['']
