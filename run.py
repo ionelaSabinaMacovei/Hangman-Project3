@@ -348,7 +348,7 @@ def result(guessed, word, guessed_right, score):
 def main():
     """
     Starts the game with a random word.
-    Once a game run is complete, give to the player 3 choices at the end:
+    Give to the player 3 choices at the end:
         * Play again
         * Leaderboard
         * Exit the game

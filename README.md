@@ -17,8 +17,21 @@ My goal is to utilise my knowledge of python to create a game which gathers user
 
 ## Table Content
 
+* [**Introduction**](<#introduction>)
+* [**User Experience UX**](<#user-experience-ux>)
+* [**Design**](<#design>)
+    * [Colours](<#colours>)
+    * [Flowcharts](<#flowcharts>)
+* [**Game Features**](<#game-features>)
+* [**Storage Data**](<#Storage-Data>)
+* [**Testing**](<#testing>)
+* [**Issues and Bugs**](<#issues-and-bugs>)
+* [**Deployment**](<#deployment>)
+* [**Credits**](<#credits>)
+* [**Content**](<#content>)
+* [**Technologies Used**](<#technologies-used>)
 
-## User Experience - UX
+# User Experience UX
 
 * As a user, I want to:
 
@@ -29,6 +42,9 @@ My goal is to utilise my knowledge of python to create a game which gathers user
 5. Be challenged and try to improve on my previous scores. 
 6. Compare my scores with other users on the Scoreboard.
 
+[Back to top](<#table-content>)
+
+![Responsive Mockup](images/amiresposive.png)
 ## Design
 
 #### Colours
@@ -39,8 +55,9 @@ I designed this project on the basis of the below flowchart.I created flowcharts
 
 ![Flowcharts](images/flowchart-hangman.png)
 
+[Back to top](<#table-content>)
 
-## Features
+## Game Features
 
 ### Logo and Intro Message
 
@@ -51,8 +68,6 @@ I designed this project on the basis of the below flowchart.I created flowcharts
 ### Game Rules
 ![Game Rules](images/rules.png)
 * After the user inputs their name, the program will display the game rules. The player then presses any key to start the game.<br>
-
-## Game Features
 
 ### Hangman Stage 1
 ![Game Feature](images/stage1-hangman.png)<br><br>
@@ -101,6 +116,8 @@ Any time the player guesses a wrong letter, a part of the hangman appears
 ![Exit Game](images/close-hangman.png)
 * The players will see this message if they will chose to exit the game by typing [C].
 
+[Back to top](<#table-content>)
+
 ## Storage Data
 
 I have used a Google sheet to save the player name and score.  This sheet is connected to the code through the Google Drive and Google Sheet API by the Google Cloud Platform. This method allows me to send and receive data as I had access to the Google Sheet API credentials. I also added in the Config Vars to these credentials when I was deploying the project in Heroku. As this is sensitive data, I had to add the creds.json in the Git ignore file. This would ensure that these credentials are not pushed to the repository.
@@ -112,6 +129,8 @@ I have used a Google sheet to save the player name and score.  This sheet is con
 ### Google Sheet Hangman Scoreboard
 
 ![Google Sheet Hangman Scoreboard](images/google-sheets.png)
+
+[Back to top](<#table-content>)
 
 ## Testing
 
@@ -130,7 +149,7 @@ The [PEP8](https://pep8ci.herokuapp.com/) Validator Service was used to validate
 
   ![Lighthouse Result](images/light-house-result.png)
 
-    ## Functionality 
+### Manual Testing  
 * The terminal has no issues and is working properly. 
 * The input for name work properly and shows the user an alert if the input is empty.
 * The game rules appear without any issues after the player submits their name.
@@ -138,4 +157,94 @@ The [PEP8](https://pep8ci.herokuapp.com/) Validator Service was used to validate
 * At the end of the game, the Leaderboard is updating correctly.
 * All the menu options are working without any fails.
 
-## Bugs
+[Back to top](<#table-content>)
+
+## Issues and Bugs
+
+1. 
+- Expected - Displays the top 10 best scores.
+- Testing - Chosse the scoreboard option from the menu.
+- Result - The scoreboard is not diplayed and give an error.
+- Fix - Create the display-score function where I connect the score-sheet from google sheets and give yhe condition length of update data less than 10 and if update data is equal with 10 to display update data.
+
+[Back to top](<#table-content>)
+
+## Deployment
+
+1. On the main page click the button labelled New in the top right corner and from the drop-down menu select Create New App
+2. Click on the Create App button
+3. The next page is the project’s Deploy Tab. Click on the Settings Tab and scroll down to Config Vars
+4. Click Reveal Config Vars and enter port into the Key box and 8000 into the Value box and click the Add button
+5. Click Reveal Config Vars again and enter CREDS into the Key box and the Google credentials into the Value box
+6. Next, scroll down to the Buildpack section click Add Buildpack select Python and click Save Changes
+7. Then from the Buidpack add node.js.
+8. Scroll to the top of the page and choose the Deploy tab
+9. Select Github as the deployment method
+10. Confirm you want to connect to GitHub
+11. Search for the repository name and click the connect button
+12. Scroll to the bottom of the deploy page and select the preferred deployment type.
+
+### Local Development
+To fork this repository, follow these steps:
+- Log in to GitHub
+- Go to the repository
+- On the top right corner, click on the button that says fork.
+
+To clone this repository, follow the steps:
+- Log in to GitHub
+- Go to the repository
+- Beside the gitpod button, it is code button
+- Press the Code button and the chose one of the two cloning methods
+- 1. The first one is by copping the link 
+- 2. The second one is by downloading(at the botom) by pressing Download ZIP.
+
+[Back to top](<#table-content>)
+
+## Credits
+
+### Content
+
+* The ideea on how to create a hangman game with Python were found on: 
+- https://github.com/PedroCristo/portfolio_project_3#Logo-and-Intro-Message
+- https://github.com/DanielMaherDev/Hangman
+- [W3Schools - Python](https://www.w3schools.com/python/)
+- [Stack Overflow](https://stackoverflow.com/)
+- How to clear the console: https://appdividend.com/2022/06/03/how-to-clear-console-in-python/#:~:text=For%20the%20Windows%20system%2C%20to,('cls').
+- Splitting up long strings: https://stackoverflow.com/questions/48881196/how-can-i-split-up-a-long-f-string-in-python
+- Hangman ascii text:
+- https://ascii.co.uk/art/hangman
+- http://patorjk.com/software/taag/#p=testall&h=2&f=Blocks&t=You%20Lose
+
+[Back to top](<#table-content>)
+
+## Technologies Used
+### Languages Used 
+
+* [Python](https://www.python.org/)
+
+#### Python Packages
+
+* [Random](https://docs.python.org/3/library/random.html?highlight=random#module-random): returns a random integer to get a random word
+* [Gspread](https://pypi.org/project/gspread/): allows communication with Google Sheets
+* [Colorama](https://pypi.org/project/colorama/): allows terminal text to be printed in different colours / styles
+* [google.oauth2.service_accoun](https://google-auth.readthedocs.io/en/stable/index.html): credentials used to validate credentials and grant access to Google service accounts
+  
+### Frameworks - Libraries - Programs Used
+
+* [Git](https://git-scm.com/)
+    * Git was used for version control by utilizing the Gitpod terminal to commit to Git and push to GitHub
+* [GitHub](https://github.com/)
+    * GitHub is used to store the project's code after being pushed from Git
+* [Heroku](https://id.heroku.com)
+    * Heroku was used to deploy the live project
+* [Lucidchart](https://lucid.app/)
+    * Lucidchart was used to create the flowchart
+* [PEP8](https://pep8ci.herokuapp.com/)
+    * The PEP8 was used to validate all the Python code
+
+[Back to top](<#table-content>)
+
+
+
+
+
