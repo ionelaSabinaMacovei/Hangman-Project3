@@ -161,7 +161,7 @@ def intro_game():
         +-+-+-+-+-+-+-+-+ +-+-+ +-+-+-+ +-+-+-+-+-+-+
 \n""")
 
-    print(f"Welcome to the Hangman Game!\n")
+    print(f"Welcome to the Hangman Game!")
 
 
 def get_word():
@@ -377,7 +377,7 @@ def main():
             sys.exit()
         else:
             print(f"""{Fore.RED}\n\t
-            That is not a valid option. Please try again.\n""")
+            That is not a valid option. Please enter a valid option.(Valid option are: a, b or c)\n""")
             play_game = False
 
 
@@ -385,10 +385,11 @@ if __name__ == '__main__':
 
     # Allows the user to input their own name to play the game
     while True:
-        player_name = input(f"""{intro_game()}\n
-        {Fore.GREEN}Please Enter Your Name:\n""").strip().upper()
+        player_name = input(f"""{intro_game()}
+        {Fore.GREEN}Please Enter Your Name:""").strip().upper()
         if len(player_name) == 0:
             print(f"{Fore.RED}This is not a valid name!")
+            clear_console()
             continue
         else:
             break
