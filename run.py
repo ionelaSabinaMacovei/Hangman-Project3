@@ -377,7 +377,8 @@ def main():
             sys.exit()
         else:
             print(f"""{Fore.RED}\n\t
-            That is not a valid option. Please enter a valid option.(Valid option are: a, b or c)\n""")
+            That is not a valid option. Please enter a valid option.\n
+            (Valid option are: a, b or c)\n""")
             play_game = False
 
 
@@ -386,18 +387,17 @@ if __name__ == '__main__':
     # Allows the user to input their own name to play the game
     while True:
         player_name = input(f"""{intro_game()}
-        {Fore.GREEN}Please Enter Your Name:""").strip().upper()
-        if len(player_name) == 0:
-            print(f"{Fore.RED}This is not a valid name!")
+        {Fore.GREEN}Please Enter Your Name:""")
+        if player_name.isalpha():
+            print(f"""{Fore.RED}\n\t
+            HELLO {player_name}, WELCOME TO THE HANGMAN GAME!\n""")
+            print(f"{rules()}")
+            input(f"""\n{Fore.GREEN}
+            {player_name}, PRESS ANY KEY TO START THE GAME.\n    >>> """)
             clear_console()
-            continue
-        else:
             break
-    print(f"""{Fore.RED}\n\t
-    HELLO {player_name}, WELCOME TO THE HANGMAN GAME!\n""")
-    print(f"{rules()}")
-    input(f"""\n{Fore.GREEN}
-    {player_name}, PRESS ANY KEY TO START THE GAME.\n    >>> """)
-    clear_console()
-
+        else:
+            clear_console()
+            print(f"""{Fore.RED}Username need to contain just letters""")
+            
     main()
