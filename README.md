@@ -86,29 +86,29 @@ Any time the player guesses a wrong letter, a part of the hangman appears
 
 ### Hangman Lose
 
-![Hangman Lose](images/lose-hangman.png)
+![Hangman Lose](images/lose1-hangman.png)
 * 7 letters guessed wrong the player will see the full hangman and the game is over.
 
 ### Hangman Win
 
-![Hangman Win](images/win-hangman.png)
+![Hangman Win](images/win1-hangman.png)
 * If the player guessed the full word letter by letter, they will see this feature and will win the game.
 
 ### Hangman Win Full Word
 
-![Hangman Win Full Word](images/win-fullword-hangman.png)
+![Hangman Win Full Word](images/fullword-win-hangman.png)
 * If the player guessed all the letters that appear in the word thereby completing the word or at least guessing no more than 3 correct letters before completing the full word, this feature will appear.
 
 ### Menu Options
 
-![Menu Options](images/menu-hangman.png)
+![Menu Options](images/menu1-hangman.png)
 * In the end of the game users will have access to the menu where they can choose from these options: <br>
 [A] - Play Again <br>
-[B] - Leaderboard <br>
+[B] - Scoreboard <br>
 [C] - Exit Game
 
 ### Scoreboard
-![Scoreboard](images/scoreboard-hangman.png)
+![Scoreboard](images/scoreboard1-hangman.png)
 * The Scoreboard shows the 10 players with the best scores. The scores of the players are stored in excel sheet connected to the Google Sheets. 
 * The connections are explained here [**Storage Data**](<#storage-data>)
 
@@ -148,12 +148,12 @@ The [PEP8](https://pep8ci.herokuapp.com/) Validator Service was used to validate
 1. 
 - Expected - Show the logo and ask the user to enter their name.
 - Testing - Run the program.
-- Result - The program is woorking as expected, show the logo and ask the user to ask the name.
+- Result - The program is working as expected, show the logo and ask the user to ask the name.
 
 2. 
 - Expected - The name input accept just letters.
 - Testing - Insert letters, numbers and special characters.
-- Result - When the letters were indroduced the program takes as to the next step.
+- Result - When the letters were introduced the program takes as to the next step.
          - When the user input numbers or special characters the program show an error message and ask the user to enter a valid name.
 
 3. 
@@ -172,50 +172,50 @@ The [PEP8](https://pep8ci.herokuapp.com/) Validator Service was used to validate
 - Result - The game is starting and on the main display is shown a welcome message, number of letters in the word, wrong and correct letters, score, lives and user input.
 
 6. 
-- Expected - Show the correct letter and incremmenting the score.
+- Expected - Show the correct letter and increment the score.
 - Testing -  Add a letter.
-- Result - The correct letter is added to letter space in the word and score is incremmenting by 25 points.
+- Result - The correct letter is added to letter space in the word and score is increment by 25 points.
 
 7. 
-- Expected - Swoh the incorrect letter and, take away a life and add a part to hangman graphic.
+- Expected - Show the incorrect letter and, take away a life and add a part to hangman graphic.
 - Testing - Add a wrong letter.
-- Result - The wrong letter is shown in red, the life is decremmenting by one and the to hangman graphic is adding a part.
+- Result - The wrong letter is shown in red, the life is decrementing by one and the to hangman graphic is adding a part.
 
 8. 
-- Expected - The user is notiffied when insert a already guessed letter or an invalid entry like a special character or number.
+- Expected - The user is notified when insert a already guessed letter or an invalid entry like a special character or number.
 - Testing - Add a guessed letter.
-- Result - The user is notiffied with a message in red on the top of display.
+- Result - The user is notified with a message in red on the top of display.
 
 9. 
 - Expected - Guess the correct word take the user to the winner screen.
 - Testing - Insert letter by letter or the full word.
-- Result - If the user is guessing the word letter by letter on the screen will apear win message in red, score of the user and a message that the scoreboard is updated. On the bottom of this the menu is diplayed. 
-        - If the user is guessing the full word  on the screen will apear win message in green, score of the user and a message that the scoreboard is updated. On the bottom of this the menu is diplayed. 
+- Result - If the user is guessing the word letter by letter on the screen will appear win message in red, score of the user and a message that the scoreboard is updated. On the bottom of this the menu is displayed. 
+        - If the user is guessing the full word  on the screen will appear win message in green, score of the user and a message that the scoreboard is updated. On the bottom of this the menu is displayed. 
 10. 
-- Expected - Not guess the word take the user to a loosing screen.
-- Testing - Insert  wrong  letters.
+- Expected - Not guess the word take the user to a losing screen.
+- Testing - Insert wrong letters.
 - Result - On the screen is shown a loose message in red, score of the user and the menu at the bottom.
 
 11. 
-- Expected - Menu take the user to the option selected and if the user is tipying a invalid option is notified.
-- Testing - Insert a valid option, insert a invalid option.
-- Result - Valid option insert take the user to the option chosee.
+- Expected - Menu take the user to the option selected and if the user is typing an invalid option is notified.
+- Testing - Insert a valid option, insert an invalid option.
+- Result - Valid option insert take the user to the option choose.
          - Invalid option insert shown the user an error message and ask to user to insert a valid option.
 
 12. 
 - Expected - Insert first option (play again).
-- Testing - Press the a key.
+- Testing - Press a key.
 - Result - Take the user to the main page of the game and the game is starting.
 
 13. 
 - Expected - Insert the second option (scoreboard).
-- Testing - Press the b key.
+- Testing - Press b key.
 - Result - Take the user to the top 10 scores and at the bottom of the page is shown the menu.
 
 14. 
 - Expected - Insert the third option (exit game).
-- Testing - Press the c key.
-- Result - Take the user to the clossing page where a closing and a thank you  message is diplaplayed in red.
+- Testing - Press c key.
+- Result - Take the user to the closing page where a closing and a thank you message is displayed in red.
 
 
 [Back to top](<#table-content>)
@@ -224,26 +224,26 @@ The [PEP8](https://pep8ci.herokuapp.com/) Validator Service was used to validate
 
 1. 
 - Expected - Displays the top 10 best scores.
-- Testing - Chosse the scoreboard option from the menu.
-- Result - The scoreboard is not diplayed and give an error.
-- Fix - Create the display-score function where I connect the score-sheet from google sheets and give yhe condition length of update data less than 10 and if update data is equal with 10 to display update data.
+- Testing - Choose  the scoreboard option from the menu.
+- Result - The scoreboard is not displayed and give an error.
+- Fix - Create the display-score function where I connect the score-sheet from google sheets and give the condition length of update data less than 10 and if update data is equal with 10 to display update data.
 
 2. 
-- Expected - The user name accept just letters.
+- Expected - The username accept just letters.
 - Testing - Insert numbers and special characters.
-- Result - The user name accept numbers and special characters.
+- Result - The username accept numbers and special characters.
 - Fix - Set a conditional statement where if is username.isalpha and else is shown an error message and take the user to the name input.
 
 3. 
 - Expected - Clear terminal without any other text that is not accepted.
 - Testing - Run the program.
-- Result -  A NONE word is diplayed on the logo and result screen.
+- Result -  A NONE word is displayed on the logo and result screen.
 - Fix - Exclude the intro function and rules function from print statement, just called the function without any print statement.
 4. 
 - Expected - PEP8 no warnings.
 - Testing - Insert the code in the PEP8.
-- Result - PEP8 is swhoing white and to many spaces errors and  line to long errors.
-- Fix - Dellete all the white spaces and rewrite the long lines.
+- Result - PEP8 is showing white and to many spaces errors and  line to long errors.
+- Fix - Delete all the white spaces and rewrite the long lines.
 
 [Back to top](<#table-content>)
 
@@ -274,7 +274,7 @@ To clone this repository, follow the steps:
 - Beside the gitpod button, it is code button
 - Press the Code button and the chose one of the two cloning methods
 - 1. The first one is by copping the link 
-- 2. The second one is by downloading(at the botom) by pressing Download ZIP.
+- 2. The second one is by downloading(at the bottom) by pressing Download ZIP.
 
 [Back to top](<#table-content>)
 
