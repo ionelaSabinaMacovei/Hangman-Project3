@@ -160,9 +160,9 @@ def intro_game():
         |C|a|p|i|t|a|l|s| |o|f| |t|h|e| |E|u|r|o|p|e|
         +-+-+-+-+-+-+-+-+ +-+-+ +-+-+-+ +-+-+-+-+-+-+
 \n
-            Welcome to the Hangman Game!\n""")
+           Welcome to the Hangman Game!\n""")
 
-    
+
 def get_word():
     """
     Get a random word from the words list
@@ -302,7 +302,7 @@ def result(guessed, word, guessed_right, score):
     """
     Display win or lose message
     """
-    if guessed and len(word) >= 6 and guessed_right <= 3:
+    if guessed and len(word) >= 1 and guessed_right <= 3:
         clear_console()
         print(f"""{Fore.GREEN}
     ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗
@@ -400,8 +400,8 @@ if __name__ == '__main__':
         else:
             clear_console()
             print(f"""{Fore.RED}
-            That is not a valid option. 
+            That is not a valid option.
             Please enter a valid option.
             !!!Username need to contain just letters!!!""")
-            
+
     main()

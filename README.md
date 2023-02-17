@@ -23,7 +23,7 @@ My goal is to utilise my knowledge of python to create a game which gathers user
     * [Colours](<#colours>)
     * [Flowcharts](<#flowcharts>)
 * [**Game Features**](<#game-features>)
-* [**Storage Data**](<#Storage-Data>)
+* [**Storage Data**](<#storage-data>)
 * [**Testing**](<#testing>)
 * [**Issues and Bugs**](<#issues-and-bugs>)
 * [**Deployment**](<#deployment>)
@@ -44,7 +44,6 @@ My goal is to utilise my knowledge of python to create a game which gathers user
 
 [Back to top](<#table-content>)
 
-![Responsive Mockup](images/amiresposive.png)
 ## Design
 
 #### Colours
@@ -61,12 +60,12 @@ I designed this project on the basis of the below flowchart.I created flowcharts
 
 ### Logo and Intro Message
 
-![Logo and Intro Message](images/logo-intro-message.png)
+![Logo and Intro Message](images/intro-hangman.png)
 
 * When the users reach the website, they will see this feature. The game logo and the intro message are displayed here.<br>
 
 ### Game Rules
-![Game Rules](images/rules.png)
+![Game Rules](images/rules-hangman.png)
 * After the user inputs their name, the program will display the game rules. The player then presses any key to start the game.<br>
 
 ### Hangman Stage 1
@@ -110,7 +109,8 @@ Any time the player guesses a wrong letter, a part of the hangman appears
 
 ### Scoreboard
 ![Scoreboard](images/scoreboard-hangman.png)
-* The Scoreboard shows the 10 players with the best scores.
+* The Scoreboard shows the 10 players with the best scores. The scores of the players are stored in excel sheet connected to the Google Sheets. 
+* The connections are explained here [**Storage Data**](<#storage-data>)
 
 ### Exit Game
 ![Exit Game](images/close-hangman.png)
@@ -120,7 +120,9 @@ Any time the player guesses a wrong letter, a part of the hangman appears
 
 ## Storage Data
 
-I have used a Google sheet to save the player name and score.  This sheet is connected to the code through the Google Drive and Google Sheet API by the Google Cloud Platform. This method allows me to send and receive data as I had access to the Google Sheet API credentials. I also added in the Config Vars to these credentials when I was deploying the project in Heroku. As this is sensitive data, I had to add the creds.json in the Git ignore file. This would ensure that these credentials are not pushed to the repository.
+* I have used a Google sheet to save the player name and score.  This sheet is connected to the code through the Google Drive and Google Sheet API by the Google Cloud Platform. This method allows me to send and receive data as I had access to the Google Sheet API credentials. I also added in the Config Vars to these credentials when I was deploying the project in Heroku. As this is sensitive data, I had to add the creds.json in the Git ignore file. This would ensure that these credentials are not pushed to the repository.
+* The live site for Google Sheets:
+[Live Google Sheets](https://docs.google.com/spreadsheets/d/1Wgskkrr1VzHYMOQJmhaW7D_RdDGqvJ1O9juPZkkDtbo/edit#gid=0)
 
 ### Code to Connect to Google Sheet
 
@@ -139,23 +141,82 @@ I have used a Google sheet to save the player name and score.  This sheet is con
 The [PEP8](https://pep8ci.herokuapp.com/) Validator Service was used to validate every Python file in the project to ensure there were no syntax errors in the project.
 
 ![PEP8](images/pep8-validator.png).
-* No errors or warnings were found during the testing of the code in PEP8
-
-### Lighthouse 
-
- Lighthouse was used to test Performance, Best Practices, Accessibility and SEO on the Desktop.
-
-* Desktop Results:
-
-  ![Lighthouse Result](images/light-house-result.png)
+* No errors or warnings were found during the testing of the code in PEP8v 
 
 ### Manual Testing  
-* The terminal has no issues and is working properly. 
-* The input for name work properly and shows the user an alert if the input is empty.
-* The game rules appear without any issues after the player submits their name.
-* The option to press any key to start a game is running well. 
-* At the end of the game, the Leaderboard is updating correctly.
-* All the menu options are working without any fails.
+
+1. 
+- Expected - Show the logo and ask the user to enter their name.
+- Testing - Run the program.
+- Result - The program is woorking as expected, show the logo and ask the user to ask the name.
+
+2. 
+- Expected - The name input accept just letters.
+- Testing - Insert letters, numbers and special characters.
+- Result - When the letters were indroduced the program takes as to the next step.
+         - When the user input numbers or special characters the program show an error message and ask the user to enter a valid name.
+
+3. 
+- Expected - Show the rules and ask the user to press any key to start the game.
+- Testing - Introduce the correct name and press enter. 
+- Result - Show the rules of the game and ask the user to press any key to start the game.
+
+4. 
+- Expected - Start the game by pressing any key.
+- Testing - Press any key to see if it's work.
+- Result - After pressing any key the game is starting.
+ 
+5. 
+- Expected - Show the user a welcome message, number of letters in the word, hangman, wrong and correct letter guessed, score, lives and ask the user to input a letter.
+- Testing - Press any key after reading the rules.
+- Result - The game is starting and on the main display is shown a welcome message, number of letters in the word, wrong and correct letters, score, lives and user input.
+
+6. 
+- Expected - Show the correct letter and incremmenting the score.
+- Testing -  Add a letter.
+- Result - The correct letter is added to letter space in the word and score is incremmenting by 25 points.
+
+7. 
+- Expected - Swoh the incorrect letter and, take away a life and add a part to hangman graphic.
+- Testing - Add a wrong letter.
+- Result - The wrong letter is shown in red, the life is decremmenting by one and the to hangman graphic is adding a part.
+
+8. 
+- Expected - The user is notiffied when insert a already guessed letter or an invalid entry like a special character or number.
+- Testing - Add a guessed letter.
+- Result - The user is notiffied with a message in red on the top of display.
+
+9. 
+- Expected - Guess the correct word take the user to the winner screen.
+- Testing - Insert letter by letter or the full word.
+- Result - If the user is guessing the word letter by letter on the screen will apear win message in red, score of the user and a message that the scoreboard is updated. On the bottom of this the menu is diplayed. 
+        - If the user is guessing the full word  on the screen will apear win message in green, score of the user and a message that the scoreboard is updated. On the bottom of this the menu is diplayed. 
+10. 
+- Expected - Not guess the word take the user to a loosing screen.
+- Testing - Insert  wrong  letters.
+- Result - On the screen is shown a loose message in red, score of the user and the menu at the bottom.
+
+11. 
+- Expected - Menu take the user to the option selected and if the user is tipying a invalid option is notified.
+- Testing - Insert a valid option, insert a invalid option.
+- Result - Valid option insert take the user to the option chosee.
+         - Invalid option insert shown the user an error message and ask to user to insert a valid option.
+
+12. 
+- Expected - Insert first option (play again).
+- Testing - Press the a key.
+- Result - Take the user to the main page of the game and the game is starting.
+
+13. 
+- Expected - Insert the second option (scoreboard).
+- Testing - Press the b key.
+- Result - Take the user to the top 10 scores and at the bottom of the page is shown the menu.
+
+14. 
+- Expected - Insert the third option (exit game).
+- Testing - Press the c key.
+- Result - Take the user to the clossing page where a closing and a thank you  message is diplaplayed in red.
+
 
 [Back to top](<#table-content>)
 
@@ -166,6 +227,23 @@ The [PEP8](https://pep8ci.herokuapp.com/) Validator Service was used to validate
 - Testing - Chosse the scoreboard option from the menu.
 - Result - The scoreboard is not diplayed and give an error.
 - Fix - Create the display-score function where I connect the score-sheet from google sheets and give yhe condition length of update data less than 10 and if update data is equal with 10 to display update data.
+
+2. 
+- Expected - The user name accept just letters.
+- Testing - Insert numbers and special characters.
+- Result - The user name accept numbers and special characters.
+- Fix - Set a conditional statement where if is username.isalpha and else is shown an error message and take the user to the name input.
+
+3. 
+- Expected - Clear terminal without any other text that is not accepted.
+- Testing - Run the program.
+- Result -  A NONE word is diplayed on the logo and result screen.
+- Fix - Exclude the intro function and rules function from print statement, just called the function without any print statement.
+4. 
+- Expected - PEP8 no warnings.
+- Testing - Insert the code in the PEP8.
+- Result - PEP8 is swhoing white and to many spaces errors and  line to long errors.
+- Fix - Dellete all the white spaces and rewrite the long lines.
 
 [Back to top](<#table-content>)
 
@@ -204,7 +282,7 @@ To clone this repository, follow the steps:
 
 ### Content
 
-* The ideea on how to create a hangman game with Python were found on: 
+* The idea on how to create a hangman game with Python were found on: 
 - https://github.com/PedroCristo/portfolio_project_3#Logo-and-Intro-Message
 - https://github.com/DanielMaherDev/Hangman
 - [W3Schools - Python](https://www.w3schools.com/python/)
