@@ -28,7 +28,7 @@ CORRECT_ANSWER = 25
 CORRECT_FULLWORD = 200
 PLAY_AGAIN_MSG = f"""{Fore.RED}
 A - PLAY AGAIN
-B - LEADERBOARD
+B - SCOREBOARD
 C - EXIT THE GAME
 """
 
@@ -266,11 +266,11 @@ def update_scoreboard(data, score):
     """
     This updates a new row with the name, score and difficulty in worksheet.
     """
-    print(f"\t{Fore.GREEN}Updating Leaderboard...\n")
+    print(f"\t{Fore.GREEN}Updating Scoreboard...\n")
     worksheet_to_update = SHEET.worksheet("scoreboard")
     worksheet_to_update.append_row([
       str(player_name[0:7]), score, ])
-    print(f"\t{Fore.GREEN}Leaderboard Update successful.\n")
+    print(f"\t{Fore.GREEN}Scoreboard Update successful.\n")
 
 
 def display_scoreboard():
@@ -349,7 +349,7 @@ def main():
     Starts the game with a random word.
     Give to the player 3 choices at the end:
         * Play again
-        * Leaderboard
+        * Scoreboard
         * Exit the game
     """
 
@@ -375,9 +375,10 @@ def main():
             \n\tHope to see you again soon!\n""")
             sys.exit()
         else:
+            clear_console()
             print(f"""{Fore.RED}\n\t
             That is not a valid option. Please enter a valid option.\n
-            (Valid option are: a, b or c)\n""")
+            (Valid options are: a, b or c)\n""")
             play_game = False
 
 
@@ -398,6 +399,9 @@ if __name__ == '__main__':
             break
         else:
             clear_console()
-            print(f"""{Fore.RED}Username need to contain just letters""")
+            print(f"""{Fore.RED}
+            That is not a valid option. 
+            Please enter a valid option.
+            !!!Username need to contain just letters!!!""")
             
     main()
