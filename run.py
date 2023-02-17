@@ -159,11 +159,10 @@ def intro_game():
         +-+-+-+-+-+-+-+-+ +-+-+ +-+-+-+ +-+-+-+-+-+-+
         |C|a|p|i|t|a|l|s| |o|f| |t|h|e| |E|u|r|o|p|e|
         +-+-+-+-+-+-+-+-+ +-+-+ +-+-+-+ +-+-+-+-+-+-+
-\n""")
+\n
+            Welcome to the Hangman Game!\n""")
 
-    print(f"Welcome to the Hangman Game!")
-
-
+    
 def get_word():
     """
     Get a random word from the words list
@@ -386,14 +385,15 @@ if __name__ == '__main__':
 
     # Allows the user to input their own name to play the game
     while True:
-        player_name = input(f"""{intro_game()}
+        intro_game()
+        player_name = input(f"""
         {Fore.GREEN}Please Enter Your Name:""")
         if player_name.isalpha():
             print(f"""{Fore.RED}\n\t
             HELLO {player_name}, WELCOME TO THE HANGMAN GAME!\n""")
-            print(f"{rules()}")
+            rules()
             input(f"""\n{Fore.GREEN}
-            {player_name}, PRESS ANY KEY TO START THE GAME.\n    >>> """)
+            {player_name}, PRESS ANY KEY TO START THE GAME.\n """)
             clear_console()
             break
         else:
